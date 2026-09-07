@@ -67,6 +67,19 @@ directory and restart Home Assistant.
 
 ## Setup
 
+### Player settings (do this first)
+
+On the player itself, go to **Setup → Network Settings** and turn on:
+
+- **Remote Start**
+- **Auto Home Network Access Permission**
+
+Both are off by default. Neither has been isolated as *strictly* required
+(pairing was only ever tested with both on), but turn both on before
+attempting setup below to rule them out as variables — see
+[sony-bdp-ip's protocol notes](https://github.com/kevinclark/sony-bdp-ip/blob/main/docs/PROTOCOL.md)
+for the full detail on what's confirmed vs. assumed here.
+
 **Settings → Devices & Services → Add Integration → "Sony BDP-CE Blu-ray
 Player."** You'll need:
 
