@@ -3,9 +3,9 @@
   "name": "Sony BDP-CE Blu-ray Player",
   "codeowners": ["@kevinclark"],
   "config_flow": true,
-  "documentation": "https://github.com/kevinclark/sony-bdp-ip",
+  "documentation": "https://github.com/kevinclark/home-assistant-sony-bdp",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/kevinclark/sony-bdp-ip/issues",
+  "issue_tracker": "https://github.com/kevinclark/home-assistant-sony-bdp/issues",
   "requirements": ["requests"],
   "version": "0.1.0"
 }
