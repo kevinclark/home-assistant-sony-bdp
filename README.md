@@ -104,6 +104,9 @@ This integration depends on the
 [sony-bdp-ip](https://github.com/kevinclark/sony-bdp-ip) client, pinned via
 `manifest.json`'s `requirements` and installed by Home Assistant from
 [PyPI](https://pypi.org/project/sony-bdp-ip/) like any other dependency.
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for a couple of
+Home-Assistant-custom_component gotchas that cost real debugging time
+while building this.
 
 ## License
 
