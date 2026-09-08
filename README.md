@@ -100,11 +100,10 @@ generation), and anyone who finds a real play/pause signal this project
 missed (see the protocol writeup linked above before chasing that
 particular white whale).
 
-This repo vendors its own copy of the
-[sony-bdp-ip](https://github.com/kevinclark/sony-bdp-ip) client
-(`custom_components/sony_bdp/client.py`) rather than depending on it as a
-published package, since it isn't on PyPI yet. Keep the two in sync — see
-that file's docstring.
+This integration depends on the
+[sony-bdp-ip](https://github.com/kevinclark/sony-bdp-ip) client, pinned via
+`manifest.json`'s `requirements` and installed by Home Assistant from
+[PyPI](https://pypi.org/project/sony-bdp-ip/) like any other dependency.
 
 ## License
 

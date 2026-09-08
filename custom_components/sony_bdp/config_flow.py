@@ -17,7 +17,8 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_HOST
 from homeassistant.data_entry_flow import FlowResult
 
-from .client import SonyBdpClient
+from sony_bdp_ip import SonyBdpClient
+
 from .const import (
     CONF_CLIENT_ID,
     CONF_MAC,

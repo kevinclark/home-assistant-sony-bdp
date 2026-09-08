@@ -10,7 +10,8 @@ import requests
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .client import SonyBdpClient
+from sony_bdp_ip import SonyBdpClient
+
 from .const import DOMAIN, UPDATE_INTERVAL_SECONDS
 
 _LOGGER = logging.getLogger(__name__)

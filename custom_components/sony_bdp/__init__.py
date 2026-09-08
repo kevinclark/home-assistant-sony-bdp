@@ -6,7 +6,8 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, Platform
 from homeassistant.core import HomeAssistant
 
-from .client import SonyBdpClient
+from sony_bdp_ip import SonyBdpClient
+
 from .const import CONF_CLIENT_ID, CONF_MAC, CONF_NICKNAME, CONF_PIN, DOMAIN
 from .coordinator import SonyBdpCoordinator
 
@@ -19,8 +20,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         client_id=entry.data[CONF_CLIENT_ID],
         nickname=entry.data[CONF_NICKNAME],
         mac=entry.data.get(CONF_MAC),
-        pin=entry.data.get(CONF_PIN),
     )
+    client.pin = entry.data.get(CONF_PIN)
     coordinator = SonyBdpCoordinator(hass, client)
     await coordinator.async_config_entry_first_refresh()
 

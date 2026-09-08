@@ -6,6 +6,6 @@
   "documentation": "https://github.com/kevinclark/home-assistant-sony-bdp",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/kevinclark/home-assistant-sony-bdp/issues",
-  "requirements": ["requests"],
-  "version": "0.1.0"
+  "requirements": ["sony-bdp-ip==0.1.0", "requests"],
+  "version": "0.1.1"
 }

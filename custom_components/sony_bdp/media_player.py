@@ -17,7 +17,8 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .client import PairingRequired
+from sony_bdp_ip import PairingRequired
+
 from .const import CONF_MODEL, DOMAIN
 from .coordinator import SonyBdpCoordinator
 
