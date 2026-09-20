@@ -65,9 +65,13 @@ class SonyBdpMediaPlayer(CoordinatorEntity[SonyBdpCoordinator], MediaPlayerEntit
 
     @property
     def state(self) -> MediaPlayerState:
-        """PLAYING means "actively watching content" — playing or paused,
-        this device doesn't distinguish the two (confirmed live, see
-        docs/PROTOCOL.md). IDLE means at a menu (disc may still be loaded).
+        """PLAYING means "content is up" — playing or paused, this device
+        doesn't distinguish the two (confirmed live, see docs/PROTOCOL.md).
+        IDLE means the player is on but no content is up.
+
+        Backed by CERS ``viewing`` OR the DIAL app-state probe; as of
+        2026-09-19 only DIAL actually reports, and it counts the disc's own
+        top menu as content being up. See the coordinator docstring.
         """
         data = self.coordinator.data
         if data is None or not data.reachable:
@@ -102,10 +106,22 @@ class SonyBdpMediaPlayer(CoordinatorEntity[SonyBdpCoordinator], MediaPlayerEntit
 
     @property
     def extra_state_attributes(self) -> dict[str, str]:
+        """Disc type, plus which of the two content signals actually fired.
+
+        The per-signal flags are deliberately exposed: on 2026-09-19 the two
+        disagreed for over an hour and answering "which one said what" needed
+        a hand-built authenticated CERS call. Now it is just an attribute.
+        """
         data = self.coordinator.data
-        if data is None or not data.disc_info:
+        if data is None:
             return {}
-        return {"disc_type": data.disc_info.get("type")}
+        attrs: dict[str, str] = {
+            "cers_viewing": data.cers_viewing,
+            "dial_running": data.dial_running,
+        }
+        if data.disc_info:
+            attrs["disc_type"] = data.disc_info.get("type")
+        return attrs
 
     async def _async_send(self, name: str, action) -> None:
         try:
