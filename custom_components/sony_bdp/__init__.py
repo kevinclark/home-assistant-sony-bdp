@@ -11,7 +11,7 @@ from sony_bdp_ip import SonyBdpClient
 from .const import CONF_CLIENT_ID, CONF_MAC, CONF_NICKNAME, CONF_PIN, DOMAIN
 from .coordinator import SonyBdpCoordinator
 
-PLATFORMS = [Platform.MEDIA_PLAYER]
+PLATFORMS = [Platform.MEDIA_PLAYER, Platform.REMOTE]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

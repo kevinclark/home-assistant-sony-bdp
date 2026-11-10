@@ -58,6 +58,8 @@ class SonyBdpMediaPlayer(CoordinatorEntity[SonyBdpCoordinator], MediaPlayerEntit
             | MediaPlayerEntityFeature.PAUSE
             | MediaPlayerEntityFeature.STOP
             | MediaPlayerEntityFeature.TURN_OFF
+            | MediaPlayerEntityFeature.NEXT_TRACK
+            | MediaPlayerEntityFeature.PREVIOUS_TRACK
         )
         if self.coordinator.client.mac:
             features |= MediaPlayerEntityFeature.TURN_ON
@@ -145,6 +147,18 @@ class SonyBdpMediaPlayer(CoordinatorEntity[SonyBdpCoordinator], MediaPlayerEntit
 
     async def async_media_stop(self) -> None:
         await self._async_send("stop", self.coordinator.client.stop)
+
+    async def async_media_next_track(self) -> None:
+        """Next chapter (the remote's NEXT button)."""
+        await self._async_send(
+            "next", lambda: self.coordinator.client.send_command("Next")
+        )
+
+    async def async_media_previous_track(self) -> None:
+        """Previous chapter (the remote's PREV button)."""
+        await self._async_send(
+            "previous", lambda: self.coordinator.client.send_command("Prev")
+        )
 
     async def async_turn_off(self) -> None:
         await self._async_send("power", self.coordinator.client.power)

@@ -78,6 +78,7 @@ class SonyBdpCoordinator(DataUpdateCoordinator[SonyBdpData]):
             update_interval=timedelta(seconds=UPDATE_INTERVAL_SECONDS),
         )
         self.client = client
+        self._status_unsupported_logged = False
 
     def _dial_running(self) -> bool:
         """True if the player's video app is running. Needs no pairing.
@@ -100,7 +101,20 @@ class SonyBdpCoordinator(DataUpdateCoordinator[SonyBdpData]):
     async def _async_update_data(self) -> SonyBdpData:
         try:
             status = await self.hass.async_add_executor_job(self.client.get_status)
-        except requests.exceptions.RequestException:
+        except requests.exceptions.HTTPError as err:
+            # The player answered, it just doesn't offer getStatus (seen on a
+            # UBP-X1100ES, where IRCC control works fine). It is on -- keep
+            # going with the DIAL probe instead of reporting it as off.
+            if not self._status_unsupported_logged:
+                _LOGGER.warning(
+                    "%s: CERS getStatus not available (%s); using DIAL only for "
+                    "the content signal",
+                    self.client.host,
+                    err,
+                )
+                self._status_unsupported_logged = True
+            status = {}
+        except (requests.exceptions.RequestException, ElementTree.ParseError):
             return SonyBdpData(reachable=False, viewing_content=False)
 
         cers_viewing = "viewing" in status

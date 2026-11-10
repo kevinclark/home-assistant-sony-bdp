@@ -11,5 +11,5 @@
   "requirements": [
     "sony-bdp-ip==0.1.0"
   ],
-  "version": "0.1.2"
+  "version": "0.2.0"
 }

@@ -21,6 +21,14 @@ standalone Python client (for non-HA use) live in a companion repo:
 - A `media_player` entity: on/off, play/pause/stop/eject, and whether
   content is actively being watched — all over the network, no IR blaster.
 - Wake-on-LAN power-on from full standby.
+- A `remote` entity that sends **any** button of the player's remote over IP
+  via `remote.send_command` (chapter skip, top/pop-up menu, navigation,
+  return, colour keys, ...). Names come from the player's own command list
+  (`getRemoteCommandList`), with the built-in table as fallback; the known
+  names are in the entity's `commands` attribute. Harmony-style aliases
+  (`ChapterNext`, `PopUp`, `DirectionUp`, `Select`, ...) are accepted, so
+  scripts written for a Harmony hub keep working.
+- Next/previous chapter on the `media_player` entity.
 - Disc format (e.g. "UHD BD-ROM") shown as the media title when a disc is
   loaded — see Limitations below for why it's format, not the movie's name.
 - A config flow: add the integration, enter the host, pair with the PIN the
@@ -44,7 +52,9 @@ standalone Python client (for non-HA use) live in a companion repo:
 - Pairing needs a display connected and on, at least the first time — the
   PIN shows as on-screen text over HDMI (this unit has no front-panel
   display to fall back on).
-- Only tested against a UBP-X700. Other BDP-CE-era Sony Blu-ray players
+- Tested against a UBP-X700 and a **UBP-X1100ES** (pairing, IRCC control,
+  chapter skip, menus, DIAL content signal all confirmed on the X1100ES).
+- Only tested against those two models. Other BDP-CE-era Sony Blu-ray players
   (and possibly some AV receivers/TVs of the same generation, which shared
   this control scheme) may work but haven't been verified.
 
